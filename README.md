@@ -1,17 +1,19 @@
-# Certificate Reader
+# PKI Toolkit
 
-A Python tool to inspect X.509 certificates in PEM format.
+## Overview
 
 ## Features
 
-- Read Subject
-- Read Issuer
-- Read Expiration Date
-- Calculate remaining validity
-- Show SHA256 fingerprint
-- Display Serial Number
+## Project Structure
 
-## Technologies
+## Roadmap
 
-- Python
-- cryptography
+## Requirements
+
+## Installation
+
+## Usage
+
+## Future Modules
+
+## License
