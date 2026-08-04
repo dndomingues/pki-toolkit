@@ -46,8 +46,17 @@ pki-toolkit/
 
 ## Current Features
 
-- Project structure
-- Certificate Reader (in development)
+- Read X.509 certificates in PEM format
+- Display Subject and Issuer
+- Display certificate version and serial number
+- Display validity period and remaining days
+- Identify public-key algorithm and key size
+- Display signature algorithm
+- Inspect Basic Constraints
+- Extract Subject Alternative Names
+- Inspect Key Usage
+- Inspect Extended Key Usage
+- Generate SHA-256 fingerprint
 
 ---
 
@@ -83,12 +92,17 @@ pip install -r requirements.txt
 
 Current Sprint:
 
-- [ ] Read PEM certificate
-- [ ] Display Subject
-- [ ] Display Issuer
-- [ ] Display Validity
-- [ ] Display Serial Number
-- [ ] Display Fingerprint
+- [x] Read PEM certificate
+- [x] Display Subject
+- [x] Display Issuer
+- [x] Display Validity
+- [x] Display Serial Number
+- [x] Display Fingerprint
+- [x] Identify public-key algorithm
+- [x] Extract Subject Alternative Names
+- [x] Inspect Basic Constraints
+- [x] Inspect Key Usage
+- [x] Inspect Extended Key Usage
 
 ---
 
