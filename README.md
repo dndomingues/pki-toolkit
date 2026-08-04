@@ -57,6 +57,9 @@ pki-toolkit/
 - Inspect Key Usage
 - Inspect Extended Key Usage
 - Generate SHA-256 fingerprint
+- Fetch certificates directly from remote TLS servers
+- Support local PEM files and remote hostnames
+- Handle DNS, connection and TLS handshake errors
 
 ---
 
@@ -103,6 +106,9 @@ Current Sprint:
 - [x] Inspect Basic Constraints
 - [x] Inspect Key Usage
 - [x] Inspect Extended Key Usage
+- [x] Fetch certificate from remote TLS endpoint
+- [x] Support local files and remote hostnames
+- [x] Handle remote connection errors
 
 ---
 

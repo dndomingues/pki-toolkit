@@ -4,9 +4,12 @@ from pathlib import Path
 import sys
 
 from cryptography import x509
+
 from cryptography.hazmat.primitives import hashes
 
 from datetime import datetime, timezone
+
+from tls_fetcher import TLSCertificateFetchError, fetch_certificate
 
 from utils import (
     get_basic_constraints,
@@ -38,6 +41,27 @@ def load_certificate(certificate_path: Path) -> x509.Certificate:
         raise ValueError(
             f"Unable to read PEM certificate: {certificate_path}"
         ) from error
+
+def load_certificate_from_source(source: str) -> x509.Certificate:
+    """Load a certificate from a local PEM file or remote TLS server."""
+
+    certificate_path = Path(source)
+
+    if certificate_path.exists():
+        return load_certificate(certificate_path)
+
+    looks_like_file = (
+        certificate_path.suffix.lower() in {".pem", ".crt", ".cer"}
+        or "/" in source
+        or "\\" in source
+    )
+
+    if looks_like_file:
+        raise FileNotFoundError(
+            f"Certificate file not found: {certificate_path}"
+        )
+
+    return fetch_certificate(source)
 
 
 def format_fingerprint(fingerprint: bytes) -> str:
@@ -128,21 +152,31 @@ def display_certificate(certificate: x509.Certificate) -> None:
         print("  - Extension not present")
 
     print(f"SHA-256 Fingerprint.: {format_fingerprint(fingerprint)}")
+              
 
 def main() -> None:
     """Run the certificate reader from the command line."""
 
     if len(sys.argv) != 2:
         program_name = Path(sys.argv[0]).name
-        print(f"Usage: python {program_name} <certificate.pem>")
+        print(
+            f"Usage: python {program_name} "
+            "<certificate.pem | hostname>"
+        )
         raise SystemExit(1)
 
-    certificate_path = Path(sys.argv[1])
+    source = sys.argv[1]
 
     try:
-        certificate = load_certificate(certificate_path)
+        certificate = load_certificate_from_source(source)
         display_certificate(certificate)
-    except (FileNotFoundError, ValueError, PermissionError) as error:
+
+    except (
+        FileNotFoundError,
+        PermissionError,
+        TLSCertificateFetchError,
+        ValueError,
+    ) as error:
         print(f"Error: {error}", file=sys.stderr)
         raise SystemExit(1) from error
 
