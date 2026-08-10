@@ -9,9 +9,9 @@ from cryptography.hazmat.primitives import hashes
 
 from datetime import datetime, timezone
 
-from tls_fetcher import TLSCertificateFetchError, fetch_certificate
+from .tls_fetcher import TLSCertificateFetchError, fetch_certificate
 
-from utils import (
+from .utils import (
     get_basic_constraints,
     get_extended_key_usage,
     get_key_usage,
